@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>深圳市道路总长变化趋势 (2014-2026)</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4ecf7 100%);
+    font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+    color: #2c3e50;
+    display: flex; justify-content: center; align-items: center;
+    min-height: 100vh; padding: 20px;
+  }
+  .chart-wrap {
+    background: #fff; border-radius: 12px; padding: 20px 24px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    width: 100%; max-width: 1100px;
+  }
+  .chart-title {
+    font-size: 18px; font-weight: 600; color: #1e3c72;
+    margin-bottom: 4px; text-align: center;
+  }
+  .chart-sub {
+    font-size: 12px; color: #7a8a99; text-align: center; margin-bottom: 12px;
+  }
+  #chart { width: 100%; height: 460px; }
+</style>
+</head>
+<body>
+<div class="chart-wrap">
+  <div class="chart-title">深圳市道路总长变化趋势 (2014-2026)</div>
+  <div id="chart"></div>
+</div>
+<script>
+  var chart = echarts.init(document.getElementById('chart'));
+  var option = {"tooltip": {"trigger": "axis", "formatter": "function(params){ var v=params[0]; return v.axisValue+'年<br><b>'+v.value+' km</b>'; }"}, "grid": {"left": 80, "right": 50, "top": 60, "bottom": 50}, "xAxis": {"type": "category", "data": ["2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026"], "axisLabel": {"fontSize": 13, "color": "#2c3e50"}, "axisLine": {"lineStyle": {"color": "#bdc3c7"}}}, "yAxis": {"type": "value", "name": "道路总长 (km)", "nameTextStyle": {"color": "#7a8a99", "fontSize": 12}, "axisLabel": {"color": "#5a6c7d"}, "splitLine": {"lineStyle": {"type": "dashed", "color": "#ecf0f1"}}}, "series": [{"name": "道路总长", "type": "line", "data": [5578.7, 7681.1, 8247.7, 9989.7, 11503.4, 12547.0, 13362.2, 14618.9, 16211.4, 16826.6, 18063.3, 19144.8, 20741.1], "smooth": true, "symbol": "circle", "symbolSize": 8, "lineStyle": {"width": 3, "color": "#1e3c72"}, "itemStyle": {"color": "#1e3c72"}, "areaStyle": {"color": {"type": "linear", "x": 0, "y": 0, "x2": 0, "y2": 1, "colorStops": [{"offset": 0, "color": "rgba(30,60,114,0.25)"}, {"offset": 1, "color": "rgba(30,60,114,0.02)"}]}}, "markPoint": {"symbol": "pin", "symbolSize": 55, "label": {"fontSize": 12, "color": "#fff"}, "itemStyle": {"color": "#c0392b"}, "data": [{"coord": [0, 5578.7], "value": "5579"}, {"coord": [12, 20741.1], "value": "20740"}]}, "markLine": {"silent": true, "lineStyle": {"color": "#e74c3c", "type": "dashed", "width": 1.5}, "label": {"fontSize": 11, "color": "#e74c3c"}, "data": [{"yAxis": 5579, "name": "2014起点"}, {"yAxis": 20740, "name": "2026终点"}]}}]};
+  chart.setOption(option);
+  window.addEventListener('resize', function() { chart.resize(); });
+</script>
+</body>
+</html>

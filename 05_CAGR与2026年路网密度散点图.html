@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CAGR与2026年路网密度散点图</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4ecf7 100%);
+    font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+    color: #2c3e50;
+    display: flex; justify-content: center; align-items: center;
+    min-height: 100vh; padding: 20px;
+  }
+  .chart-wrap {
+    background: #fff; border-radius: 12px; padding: 20px 24px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    width: 100%; max-width: 1100px;
+  }
+  .chart-title {
+    font-size: 18px; font-weight: 600; color: #1e3c72;
+    margin-bottom: 4px; text-align: center;
+  }
+  .chart-sub {
+    font-size: 12px; color: #7a8a99; text-align: center; margin-bottom: 12px;
+  }
+  #chart { width: 100%; height: 480px; }
+</style>
+</head>
+<body>
+<div class="chart-wrap">
+  <div class="chart-title">CAGR与2026年路网密度散点图</div>
+  <div id="chart"></div>
+</div>
+<script>
+  var chart = echarts.init(document.getElementById('chart'));
+  var option = {
+        tooltip: {
+            formatter: function(p) {
+                return '<b>' + p.data.name + '</b><br>' +
+                    'CAGR: <b>' + p.value[0] + '%</b><br>' +
+                    '2026年密度: <b>' + p.value[1] + ' km/km²</b>';
+            }
+        },
+        grid: {left: 80, right: 50, top: 50, bottom: 60},
+        xAxis: {
+            type: 'value',
+            name: 'CAGR 复合年均增速 (%)',
+            nameLocation: 'middle',
+            nameGap: 35,
+            nameTextStyle: {color: '#7a8a99', fontSize: 13},
+            axisLabel: {color: '#5a6c7d', formatter: '{value}%'},
+            splitLine: {lineStyle: {type: 'dashed', color: '#ecf0f1'}}
+        },
+        yAxis: {
+            type: 'value',
+            name: '2026年密度 (km/km²)',
+            nameTextStyle: {color: '#7a8a99', fontSize: 12},
+            axisLabel: {color: '#5a6c7d'},
+            splitLine: {lineStyle: {type: 'dashed', color: '#ecf0f1'}}
+        },
+        series: [{
+            type: 'scatter',
+            symbolSize: 22,
+            data: [{"value": [9.47, 8.25], "name": "光明区", "itemStyle": {"color": "#2980b9"}},
+{"value": [6.3, 15.09], "name": "南山区", "itemStyle": {"color": "#e67e22"}},
+{"value": [13.06, 7.82], "name": "坪山区", "itemStyle": {"color": "#8e44ad"}},
+{"value": [10.7, 10.97], "name": "宝安区", "itemStyle": {"color": "#27ae60"}},
+{"value": [7.28, 7.6], "name": "盐田区", "itemStyle": {"color": "#16a085"}},
+{"value": [6.1, 21.1], "name": "福田区", "itemStyle": {"color": "#c0392b"}},
+{"value": [10.05, 13.91], "name": "罗湖区", "itemStyle": {"color": "#e74c3c"}},
+{"value": [11.35, 12.97], "name": "龙华区", "itemStyle": {"color": "#f39c12"}},
+{"value": [11.55, 6.2], "name": "龙岗区", "itemStyle": {"color": "#34495e"}}],
+            label: {
+                show: true,
+                position: 'right',
+                fontSize: 12,
+                color: '#2c3e50',
+                formatter: '{b}'
+            },
+            markLine: {
+                silent: true,
+                symbol: ['none', 'none'],
+                lineStyle: {color: '#bbb', type: 'dashed'},
+                data: [
+                    {type: 'average', valueIndex: 0, label: {formatter: 'CAGR均值', color: '#999'}}
+                ]
+            }
+        }]
+    };
+  chart.setOption(option);
+  window.addEventListener('resize', function() { chart.resize(); });
+</script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2014年与2026年各区路网密度对比</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4ecf7 100%);
+    font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+    color: #2c3e50;
+    display: flex; justify-content: center; align-items: center;
+    min-height: 100vh; padding: 20px;
+  }
+  .chart-wrap {
+    background: #fff; border-radius: 12px; padding: 20px 24px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    width: 100%; max-width: 1100px;
+  }
+  .chart-title {
+    font-size: 18px; font-weight: 600; color: #1e3c72;
+    margin-bottom: 4px; text-align: center;
+  }
+  .chart-sub {
+    font-size: 12px; color: #7a8a99; text-align: center; margin-bottom: 12px;
+  }
+  #chart { width: 100%; height: 480px; }
+</style>
+</head>
+<body>
+<div class="chart-wrap">
+  <div class="chart-title">2014年与2026年各区路网密度对比</div>
+  <div id="chart"></div>
+</div>
+<script>
+  var chart = echarts.init(document.getElementById('chart'));
+  var option = {
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {type: 'shadow'},
+            formatter: function(params) {
+                var name = params[0].name;
+                var v14 = params[0].value;
+                var v26 = params[1] ? params[1].value : 0;
+                var html = '<b>' + name + '</b><br>';
+                if (v14 === 0) {
+                    html += '2014年: <span style="color:#999">未设区</span><br>';
+                } else {
+                    html += '2014年: <b>' + v14.toFixed(2) + ' km/km²</b><br>';
+                }
+                html += '2026年: <b>' + v26.toFixed(2) + ' km/km²</b>';
+                return html;
+            }
+        },
+        legend: {top: 6, left: 'center', data: ['2014年', '2026年']},
+        grid: {left: 80, right: 40, top: 60, bottom: 70},
+        xAxis: {
+            type: 'category',
+            data: ["福田区", "南山区", "罗湖区", "龙华区", "宝安区", "光明区", "坪山区", "盐田区", "龙岗区"],
+            axisLabel: {fontSize: 12, color: '#2c3e50'},
+            axisLine: {lineStyle: {color: '#bdc3c7'}}
+        },
+        yAxis: {
+            type: 'value',
+            name: '路网密度 (km/km²)',
+            nameTextStyle: {color: '#7a8a99', fontSize: 12},
+            axisLabel: {color: '#5a6c7d'},
+            splitLine: {lineStyle: {type: 'dashed', color: '#ecf0f1'}}
+        },
+        series: [
+            {
+                name: '2014年',
+                type: 'bar',
+                barWidth: '30%',
+                itemStyle: {color: '#90caf9', borderRadius: [3,3,0,0]},
+                label: {
+                    show: true, position: 'top', fontSize: 10, color: '#7a8a99',
+                    formatter: function(p) {
+                        if (p.value === 0) return '未设区';
+                        return p.value.toFixed(1);
+                    }
+                },
+                data: [10.37, 7.25, 4.41, 0, 3.24, 0, 0, 3.27, 1.67]
+            },
+            {
+                name: '2026年',
+                type: 'bar',
+                barWidth: '30%',
+                itemStyle: {color: '#1e3c72', borderRadius: [3,3,0,0]},
+                label: {show: true, position: 'top', fontSize: 10, color: '#2c3e50', formatter: function(p){return p.value.toFixed(1);}},
+                data: [21.1, 15.09, 13.91, 12.97, 10.97, 8.25, 7.82, 7.6, 6.2]
+            }
+        ]
+    };
+  chart.setOption(option);
+  window.addEventListener('resize', function() { chart.resize(); });
+</script>
+</body>
+</html>

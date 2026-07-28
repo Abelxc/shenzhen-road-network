@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2014年深圳各区路网密度分布</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4ecf7 100%);
+    font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+    color: #2c3e50;
+    display: flex; justify-content: center; align-items: center;
+    min-height: 100vh; padding: 20px;
+  }
+  .chart-wrap {
+    background: #fff; border-radius: 12px; padding: 20px 24px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    width: 100%; max-width: 1100px;
+  }
+  .chart-title {
+    font-size: 18px; font-weight: 600; color: #1e3c72;
+    margin-bottom: 4px; text-align: center;
+  }
+  .chart-sub {
+    font-size: 12px; color: #7a8a99; text-align: center; margin-bottom: 12px;
+  }
+  #chart { width: 100%; height: 460px; }
+</style>
+</head>
+<body>
+<div class="chart-wrap">
+  <div class="chart-title">2014年深圳各区路网密度分布</div>
+  <div id="chart"></div>
+</div>
+<script>
+  var chart = echarts.init(document.getElementById('chart'));
+  var option = {
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {type: 'shadow'},
+            formatter: function(params) {
+                var p = params[0];
+                var name = p.name;
+                var idx = p.dataIndex;
+                var raw = [null,7.25,null,3.24,3.27,10.37,4.41,null,1.67];
+                var v = raw[idx];
+                if (v === null) return name + '<br>2014年尚未设区，无独立数据';
+                return name + ' (2014年)<br>路网密度: <b>' + v.toFixed(2) + ' km/km²</b>';
+            }
+        },
+        grid: {left: 80, right: 40, top: 40, bottom: 70},
+        xAxis: {
+            type: 'category',
+            data: ["光明区", "南山区", "坪山区", "宝安区", "盐田区", "福田区", "罗湖区", "龙华区", "龙岗区"],
+            axisLabel: {fontSize: 12, color: '#2c3e50', rotate: 25},
+            axisLine: {lineStyle: {color: '#bdc3c7'}}
+        },
+        yAxis: {
+            type: 'value',
+            name: '路网密度 (km/km²)',
+            nameTextStyle: {color: '#7a8a99', fontSize: 12},
+            axisLabel: {color: '#5a6c7d'},
+            splitLine: {lineStyle: {type: 'dashed', color: '#ecf0f1'}}
+        },
+        series: [{
+            type: 'bar',
+            barWidth: '55%',
+            data: [
+                {"value": 0, "itemStyle": {"color": "#ecf0f1", "borderColor": "#bdc3c7", "borderWidth": 1}, "label": {"show": true, "position": "inside", "fontSize": 11, "color": "#95a5a6", "formatter": "未设区"}},
+                {"value": 7.25, "itemStyle": {"color": "#e67e22", "borderRadius": [4, 4, 0, 0]}, "label": {"show": true, "position": "top", "fontSize": 12, "color": "#2c3e50", "formatter": "7.25"}},
+                {"value": 0, "itemStyle": {"color": "#ecf0f1", "borderColor": "#bdc3c7", "borderWidth": 1}, "label": {"show": true, "position": "inside", "fontSize": 11, "color": "#95a5a6", "formatter": "未设区"}},
+                {"value": 3.24, "itemStyle": {"color": "#27ae60", "borderRadius": [4, 4, 0, 0]}, "label": {"show": true, "position": "top", "fontSize": 12, "color": "#2c3e50", "formatter": "3.24"}},
+                {"value": 3.27, "itemStyle": {"color": "#16a085", "borderRadius": [4, 4, 0, 0]}, "label": {"show": true, "position": "top", "fontSize": 12, "color": "#2c3e50", "formatter": "3.27"}},
+                {"value": 10.37, "itemStyle": {"color": "#c0392b", "borderRadius": [4, 4, 0, 0]}, "label": {"show": true, "position": "top", "fontSize": 12, "color": "#2c3e50", "formatter": "10.37"}},
+                {"value": 4.41, "itemStyle": {"color": "#e74c3c", "borderRadius": [4, 4, 0, 0]}, "label": {"show": true, "position": "top", "fontSize": 12, "color": "#2c3e50", "formatter": "4.41"}},
+                {"value": 0, "itemStyle": {"color": "#ecf0f1", "borderColor": "#bdc3c7", "borderWidth": 1}, "label": {"show": true, "position": "inside", "fontSize": 11, "color": "#95a5a6", "formatter": "未设区"}},
+                {"value": 1.67, "itemStyle": {"color": "#34495e", "borderRadius": [4, 4, 0, 0]}, "label": {"show": true, "position": "top", "fontSize": 12, "color": "#2c3e50", "formatter": "1.67"}}
+            ]
+        }]
+    };
+  chart.setOption(option);
+  window.addEventListener('resize', function() { chart.resize(); });
+</script>
+</body>
+</html>

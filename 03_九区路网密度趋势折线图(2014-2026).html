@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>深圳九区路网密度趋势 (2014-2026)</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4ecf7 100%);
+    font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+    color: #2c3e50;
+    display: flex; justify-content: center; align-items: center;
+    min-height: 100vh; padding: 20px;
+  }
+  .chart-wrap {
+    background: #fff; border-radius: 12px; padding: 20px 24px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    width: 100%; max-width: 1100px;
+  }
+  .chart-title {
+    font-size: 18px; font-weight: 600; color: #1e3c72;
+    margin-bottom: 4px; text-align: center;
+  }
+  .chart-sub {
+    font-size: 12px; color: #7a8a99; text-align: center; margin-bottom: 12px;
+  }
+  #chart { width: 100%; height: 520px; }
+</style>
+</head>
+<body>
+<div class="chart-wrap">
+  <div class="chart-title">深圳九区路网密度趋势 (2014-2026)</div>
+  <div id="chart"></div>
+</div>
+<script>
+  var chart = echarts.init(document.getElementById('chart'));
+  var option = {
+        tooltip: {
+            trigger: 'axis',
+            formatter: function(params) {
+                var y = params[0].axisValue;
+                var html = '<b>' + y + '年</b><br>';
+                params.forEach(function(p) {
+                    if (p.value != null) {
+                        html += p.marker + p.seriesName + ': <b>' + p.value + ' km/km²</b><br>';
+                    }
+                });
+                return html;
+            }
+        },
+        legend: {type: 'scroll', top: 6, left: 'center', textStyle: {fontSize: 11}},
+        grid: {left: 70, right: 30, top: 70, bottom: 50},
+        xAxis: {
+            type: 'category',
+            data: ["2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026"],
+            axisLabel: {fontSize: 12, color: '#2c3e50'},
+            axisLine: {lineStyle: {color: '#bdc3c7'}},
+            axisPointer: {
+                label: {show: true, fontSize: 12}
+            }
+        },
+        yAxis: {
+            type: 'value',
+            name: '路网密度 (km/km²)',
+            nameTextStyle: {color: '#7a8a99', fontSize: 12},
+            axisLabel: {color: '#5a6c7d'},
+            splitLine: {lineStyle: {type: 'dashed', color: '#ecf0f1'}}
+        },
+        series: [{"name": "光明区", "type": "line", "smooth": true, "symbol": "circle", "symbolSize": 6, "lineStyle": {"width": 2.5, "color": "#2980b9"}, "itemStyle": {"color": "#2980b9"}, "data": [null, null, null, null, 4.0, 4.24, 4.48, 4.92, 5.99, 6.16, 6.79, 7.72, 8.25], "connectNulls": false, "markLine": {"silent": true, "symbol": ["none", "none"], "lineStyle": {"color": "#e74c3c", "type": "dashed", "width": 1.5}, "label": {"fontSize": 11, "color": "#e74c3c"}, "data": [{"xAxis": "2017", "label": {"formatter": "龙华/坪山\n设区"}}, {"xAxis": "2018", "label": {"formatter": "光明设区"}}]}},{"name": "南山区", "type": "line", "smooth": true, "symbol": "circle", "symbolSize": 6, "lineStyle": {"width": 2.5, "color": "#e67e22"}, "itemStyle": {"color": "#e67e22"}, "data": [7.25, 7.95, 8.47, 8.79, 9.72, 10.34, 10.98, 11.57, 12.73, 13.28, 13.38, 13.9, 15.09], "connectNulls": false},{"name": "坪山区", "type": "line", "smooth": true, "symbol": "circle", "symbolSize": 6, "lineStyle": {"width": 2.5, "color": "#8e44ad"}, "itemStyle": {"color": "#8e44ad"}, "data": [null, null, null, 2.59, 2.9, 3.83, 3.97, 6.01, 6.65, 7.03, 7.18, 7.52, 7.82], "connectNulls": false},{"name": "宝安区", "type": "line", "smooth": true, "symbol": "circle", "symbolSize": 6, "lineStyle": {"width": 2.5, "color": "#27ae60"}, "itemStyle": {"color": "#27ae60"}, "data": [3.24, 5.42, 5.75, 6.13, 6.56, 7.18, 7.74, 8.03, 8.52, 8.68, 9.19, 9.74, 10.97], "connectNulls": false},{"name": "盐田区", "type": "line", "smooth": true, "symbol": "circle", "symbolSize": 6, "lineStyle": {"width": 2.5, "color": "#16a085"}, "itemStyle": {"color": "#16a085"}, "data": [3.27, 3.6, 3.94, 3.95, 4.16, 5.16, 5.27, 5.49, 6.2, 6.32, 7.2, 7.39, 7.6], "connectNulls": false},{"name": "福田区", "type": "line", "smooth": true, "symbol": "circle", "symbolSize": 6, "lineStyle": {"width": 2.5, "color": "#c0392b"}, "itemStyle": {"color": "#c0392b"}, "data": [10.37, 12.35, 12.77, 13.02, 13.45, 13.92, 14.53, 16.85, 17.54, 18.26, 18.71, 19.22, 21.1], "connectNulls": false},{"name": "罗湖区", "type": "line", "smooth": true, "symbol": "circle", "symbolSize": 6, "lineStyle": {"width": 2.5, "color": "#e74c3c"}, "itemStyle": {"color": "#e74c3c"}, "data": [4.41, 7.03, 7.49, 7.83, 8.66, 9.22, 9.6, 10.11, 10.78, 11.14, 12.49, 12.52, 13.91], "connectNulls": false},{"name": "龙华区", "type": "line", "smooth": true, "symbol": "circle", "symbolSize": 6, "lineStyle": {"width": 2.5, "color": "#f39c12"}, "itemStyle": {"color": "#f39c12"}, "data": [null, null, null, 4.93, 6.09, 6.37, 7.08, 7.94, 8.9, 9.36, 11.0, 12.37, 12.97], "connectNulls": false},{"name": "龙岗区", "type": "line", "smooth": true, "symbol": "circle", "symbolSize": 6, "lineStyle": {"width": 2.5, "color": "#34495e"}, "itemStyle": {"color": "#34495e"}, "data": [1.67, 2.53, 2.82, 3.04, 3.23, 3.56, 3.79, 4.06, 4.76, 4.98, 5.45, 5.77, 6.2], "connectNulls": false}],
+        color: ["#2980b9", "#e67e22", "#8e44ad", "#27ae60", "#16a085", "#c0392b", "#e74c3c", "#f39c12", "#34495e"]
+    };
+  chart.setOption(option);
+  window.addEventListener('resize', function() { chart.resize(); });
+</script>
+</body>
+</html>
